@@ -37,7 +37,7 @@ Node.js ve Express kullanılarak geliştirilmiş, eğitim odaklı port tarama ar
 
 1. **Projeyi klonlayın:**
 ```bash
-git clone <repository-url>
+git clone https://github.com/LorieL06/port-scanner 
 cd port-scanner
 ```
 
