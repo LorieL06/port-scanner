@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Tarayıcı - TCP/UDP Scanner</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-network-wired"></i>
+                <h1>Port Tarayıcı</h1>
+            </div>
+            <p class="subtitle">TCP/UDP Port Scanner Tool</p>
+        </header>
+
+        <main class="main">
+            <div class="scan-form">
+                <h2><i class="fas fa-search"></i> Port Tarama</h2>
+                
+                <form id="scanForm">
+                    <div class="form-group">
+                        <label for="host">
+                            <i class="fas fa-server"></i> Hedef Host/IP
+                        </label>
+                        <input type="text" id="host" name="host" placeholder="örn: 192.168.1.1 veya google.com" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startPort">
+                                <i class="fas fa-arrow-up"></i> Başlangıç Portu
+                            </label>
+                            <input type="number" id="startPort" name="startPort" min="1" max="65535" value="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="endPort">
+                                <i class="fas fa-arrow-down"></i> Bitiş Portu
+                            </label>
+                            <input type="number" id="endPort" name="endPort" min="1" max="65535" value="100" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="protocol">
+                                <i class="fas fa-exchange-alt"></i> Protokol
+                            </label>
+                            <select id="protocol" name="protocol" required>
+                                <option value="tcp">TCP</option>
+                                <option value="udp">UDP</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="timeout">
+                                <i class="fas fa-clock"></i> Timeout (ms)
+                            </label>
+                            <input type="number" id="timeout" name="timeout" min="500" max="10000" value="2000">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="scanBtn" class="btn btn-primary">
+                            <i class="fas fa-play"></i> Taramayı Başlat
+                        </button>
+                        <button type="button" id="stopBtn" class="btn btn-danger" style="display: none;">
+                            <i class="fas fa-stop"></i> Durdur
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2><i class="fas fa-chart-bar"></i> Tarama Sonuçları</h2>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Toplam:</span>
+                            <span class="stat-value" id="totalPorts">0</span>
+                        </div>
+                        <div class="stat-item open">
+                            <span class="stat-label">Açık:</span>
+                            <span class="stat-value" id="openPorts">0</span>
+                        </div>
+                        <div class="stat-item closed">
+                            <span class="stat-label">Kapalı:</span>
+                            <span class="stat-value" id="closedPorts">0</span>
+                        </div>
+                        <div class="stat-item timeout">
+                            <span class="stat-label">Timeout:</span>
+                            <span class="stat-value" id="timeoutPorts">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
+
+                <div class="results-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Port</th>
+                                <th>Durum</th>
+                                <th>Servis</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTable">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="export-section">
+                    <button class="btn btn-secondary" onclick="exportResults()">
+                        <i class="fas fa-download"></i> Sonuçları İndir
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Portlar taranıyor...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
