@@ -1,3 +1,297 @@
+# Port Scanner
+
+> **Modern, fast, and user-friendly TCP/UDP port scanner**
+
+A port scanning tool developed with Node.js and Express, focused on education. Offers a modern web-based interface as an alternative to the complexity of Nmap.
+
+## Key Features
+
+| **Fast Scanning** | Optimized performance with 200 concurrent connections |
+|---|---|
+| **Web-Based** | Accessible from the browser, no installation required |
+| **Responsive** | Modern design compatible with mobile and desktop |
+| **Real-Time** | Progress bar and detailed statistics |
+| **Download Results** | Automatic result download in CSV format |
+| **Education-Focused** | Ideal for learning port scanning concepts |
+
+## Detailed Features
+
+- **TCP and UDP Port Scanning**: Supports both protocols
+- **Modern Web Interface**: Gradient background and responsive design
+- **Real-Time Results**: Progress display during scanning
+- **Port Service Detection**: Service names for common ports (HTTP, SSH, FTP, etc.)
+- **Download Results**: Download results in CSV format
+- **Concurrent Scanning**: Fast scanning with 200 concurrent connections
+- **Timeout Settings**: Customizable timeout values (500ms-10s)
+- **English Interface**: Full English user interface
+- **Statistics**: Number of open/closed/timeout ports
+- **Security Warnings**: Warnings for responsible use
+
+## Installation
+
+### Requirements
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Steps
+
+1. **Clone the project:**
+```bash
+git clone <repository-url>
+cd port-scanner
+```
+
+2. **Install dependencies:**
+```bash
+npm install
+```
+
+3. **Start the application:**
+```bash
+# Development mode (with nodemon)
+npm run dev
+
+# Production mode
+npm start
+```
+
+4. **Open in browser:**
+```
+http://localhost:3000
+```
+
+## Usage
+
+### Web Interface
+
+1. Enter **Target Host/IP** (e.g., `192.168.1.1` or `google.com`)
+2. Set **Port range** (start and end ports)
+3. Select **Protocol** (TCP or UDP)
+4. Adjust **Timeout** value (optional)
+5. Click the **"Start Scan"** button
+
+### API Usage
+
+```bash
+curl -X POST http://localhost:3000/api/scan \
+  -H "Content-Type: application/json" \
+  -d '{
+    "host": "192.168.1.1",
+    "startPort": 1,
+    "endPort": 100,
+    "protocol": "tcp",
+    "timeout": 5000
+  }'
+```
+
+### API Response Format
+
+```json
+{
+  "host": "192.168.1.1",
+  "protocol": "tcp",
+  "totalScanned": 100,
+  "openPorts": 5,
+  "closedPorts": 90,
+  "timeoutPorts": 5,
+  "results": [
+    {
+      "port": 22,
+      "status": "open"
+    },
+    {
+      "port": 80,
+      "status": "closed"
+    }
+  ],
+  "scanTime": "2024-01-01T12:00:00.000Z"
+}
+```
+
+## Technical Details
+
+### Backend (Node.js + Express)
+
+- **Port Scanning**: Native Node.js `net` and `dgram` modules
+- **Concurrent Operations**: Optimized scanning with 200 concurrent connections
+- **Error Handling**: Comprehensive error management and timeout control
+- **CORS**: Support for cross-origin requests
+- **Real-time Logging**: Real-time progress display in the console
+
+### Frontend (Vanilla JavaScript)
+
+- **Modern UI**: Responsive design with CSS Grid and Flexbox
+- **Real-time Updates**: Real-time updates with AJAX
+- **Export Functionality**: Download results in CSV format
+- **Service Detection**: Service detection for common ports
+- **User-friendly**: English interface and user-friendly design
+
+## Nmap vs Port Scanner Comparison
+
+| Feature | Nmap | Port Scanner (This Project) |
+|---------|------|------------------------------|
+| **Speed** | Very fast (C/C++) | Fast (Node.js + Optimization) |
+| **Installation** | System-level installation | Easy installation with `npm install` |
+| **Platform** | Cross-platform | All platforms supported by Node.js |
+| **Web Interface** | None (CLI) | Modern and responsive web UI |
+| **Real-Time** | None | Progress bar and statistics |
+| **Download Results** | Manual | Automatic download in CSV format |
+| **Port Service Detection** | Advanced | Basic service detection |
+| **Educational Value** | Complex | Understandable and instructive |
+| **Customization** | Advanced | Easy customization |
+| **License** | GPL | MIT (Open source) |
+
+## Why This Project?
+
+### Advantages
+
+1. **Education-Focused**: Ideal for learning port scanning concepts
+2. **Web-Based**: Accessible from the browser, no installation required
+3. **Responsive**: Compatible with mobile and desktop
+4. **Rapid Development**: Fast development with the Node.js ecosystem
+5. **Easy Customization**: Easy modification with JavaScript
+6. **Visual Results**: Understandable results with tables and charts
+7. **English Support**: Full English interface and documentation
+8. **Result Storage**: Download results in CSV format
+
+### Target Audience
+
+- **Students**: Those who want to learn network security
+- **Developers**: Those looking for a port scanning API
+- **System Administrators**: Those who want to quickly check ports
+- **Instructors**: Those who want to use it in network security courses
+
+### Project Features
+
+- **Performance**: Optimized with 200 concurrent connections
+- **Modern UI**: Gradient background and modern design
+- **Statistics**: Number of open/closed/timeout ports
+- **Smart Scanning**: Port range validation and warnings
+- **User-Friendly**: Tips and help texts
+- **Security**: Warnings for responsible use
+
+## Project Structure
+
+```
+port-scanner/
+├── server.js          # Express server and API
+├── package.json       # Project dependencies
+├── README.md         # This file
+└── public/           # Frontend files
+    ├── index.html    # Main HTML page
+    ├── style.css     # CSS styles
+    └── script.js     # Frontend JavaScript
+```
+
+## Configuration
+
+### Environment Variables
+
+```bash
+PORT=3000              # Server port (default: 3000)
+```
+
+### Timeout Settings
+
+- **Default**: 5000ms (5 seconds)
+- **Minimum**: 1000ms (1 second)
+- **Maximum**: 30000ms (30 seconds)
+
+## Security Notes
+
+**Important**: This tool should only be used on your own network or systems you have permission to scan.
+
+- Only scan your own systems
+- Do not use on third-party systems without permission
+- Be aware of legal responsibilities
+
+## Test Examples
+
+### Local Test
+```bash
+# Scan your own computer
+host: localhost
+ports: 1-100
+protocol: tcp
+```
+
+### Router Test
+```bash
+# Scan your local network router
+host: 192.168.1.1
+ports: 80-443
+protocol: tcp
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT license.
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Port 3000 in use**
+   ```bash
+   # Use a different port
+   PORT=3001 npm start
+   ```
+
+2. **Permission denied**
+   ```bash
+   # Windows: Run as administrator
+   # Linux/Mac: Use sudo
+   ```
+
+3. **Slow scanning**
+   - Lower the timeout value
+   - Reduce the port range
+   - Check your network connection
+
+## Contact
+
+You can open an issue or contact for questions.
+
+## Success Story
+
+This project was developed to **learn port scanning concepts** and **apply modern web technologies**.
+
+### Development Process
+
+1. **Start**: Port scanning with basic socket programming
+2. **Optimization**: Speed increase with 200 concurrent connections
+3. **UI/UX**: Modern and responsive web interface
+4. **Statistics**: Real-time progress and result analysis
+5. **Localization**: Full English support
+
+### Project Goals
+
+- **Education**: Teach port scanning concepts
+- **Performance**: Fast and efficient scanning
+- **Usability**: Easy to use and understandable interface
+- **Modernity**: Up-to-date web technologies
+- **Open Source**: Open to community contributions
+
+### Contributors
+
+This project is designed for anyone who wants to learn about network security and web development. Contributions are welcome!
+
+---
+
+**Important Note**: This tool is developed **for educational purposes**. Make sure you have the necessary permissions for responsible use. Only use it on your own systems or systems you are authorized to scan.
+
+**Don't forget to star the project!**
+
+--------------------------------------------------
+
 # Port Tarayıcı (Port Scanner)
 
 > **Modern, hızlı ve kullanıcı dostu TCP/UDP port tarayıcısı**
